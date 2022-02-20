@@ -33,13 +33,44 @@ class ToDoList:
         self.tasks.append(task)
         self.write_into_file
 
+    def done_task(self, task_index):
+        try:
+            del(self.tasks[task_index-1])
+            self.write_into_file
+        except IndexError:
+            print(f'There is no open task with index {task_index}')
 
+def todo_help():
+    print()
+    print('To-Do List')
+    print('* Create new task: [todo TASK]')
+    print('* Mark a task as done: [done INDEX]')
+    print('* List a task: [list]')
+    print('* Quit the program: [quit]')
+    print()
+
+def run():
+    todolist = ToDoList('todoList.txt')
+    todo_help()
+    while True:
+        cmd_detail=input('Enter cmd: ')
+        cmd=cmd_detail.split(' ', 1)[0]
+        if cmd == 'list':
+            todolist.list_task()
+        elif cmd == 'todo':
+            task_description=cmd_detail.split(' ',1)[1]
+            todolist.add_task(task_description)
+        elif cmd=='done':
+            task_index=int(cmd_detail.split(' ',1)[1])
+            todolist.done_task(task_index)
+        elif cmd=='help':
+            todo_help()
+        elif cmd=='quit':
+            break
+        else: 
+            print('Command not found!')
+            todo_help()
 
 if __name__ == "__main__":
-    todolist = ToDoList('todoList.txt')
-    print('Before adding a task')
-    todolist.list_task()
-    todolist.add_task('Buy a gamer chair')
-    print('After adding a task')
-    todolist.list_task()
+    run()
 
