@@ -10,11 +10,15 @@ Ejemplo de un modulo para números complejos
 import math
 
 
-class Complex:
+class Complex(object):
+    number_of_complex_numbers=0
     'This class simulates complex numbers'
     def __init__(self, real=0, imag=0):
         self.SetReal(real)
         self.SetImag(imag)
+        Complex.number_of_complex_numbers += 1  #Common variable between objects
+    def __del__(self):
+        Complex.number_of_complex_numbers -= 1
 
     def GetReal(self):
         return self.__real
@@ -69,6 +73,7 @@ def main():
         print(a + b)
         print(a * b)
         print(a / b)
+        print(a.number_of_complex_numbers)
         #print('It\'s modulus and angle are:')
         #print(c.GetModulus(), c.GetPhi())
     except Exception as e:
