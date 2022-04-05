@@ -38,16 +38,39 @@ class Complex:
         if type(val) not in (int, float):
             raise Exception('Imaginary part must be a number')
         self.__imag = val
+    def __str__(self):
+        return str(self.GetReal()) + '+' + str(self.GetImag()) + 'i'
+    def __add__(self, other):
+        return Complex(self.GetReal()+other.GetReal(), self.GetImag() +
+                other.GetImag())
+    def __mul__(self,other):
+        if type(other) in (int, float):
+            return Complex(self.GetReal()*other, self.GetImag()*other)
+        else:
+            return Complex(self.GetReal()*other.GetReal() - 
+                    self.GetImag()*other.GetImag(),
+                    self.GetReal()*other.GetReal()+self.GetImag()*other.GetImag())
+    def __truediv__(self, other):
+        if type(other) in (int, float):
+            return Complex(self.GetReal() / float(other), self.GetImag() /
+                    float(other))
+        else:
+            a, b, c, d = self.GetReal(), self.GetImag(), other.GetReal(), other.GetImag()
+            nominator = c*c + d*d
+            return Complex(((a*c + b*d) / nominator), ((b*c - a*d) / nominator))
 
 
 def main():
 
     try:
 
-        c = Complex(2, 4)
-        print(c.GetReal(),'+',c.GetImag(),'j')
-        print('It\'s modulus and angle are:')
-        print(c.GetModulus(), c.GetPhi())
+        a = Complex(2, 4)
+        b = Complex(-3, 5)
+        print(a + b)
+        print(a * b)
+        print(a / b)
+        #print('It\'s modulus and angle are:')
+        #print(c.GetModulus(), c.GetPhi())
     except Exception as e:
         print(e)
 
