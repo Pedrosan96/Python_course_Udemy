@@ -7,9 +7,11 @@
 """
 Ejemplo de un modulo para usarlo en Debbuging
 """
+import pdb
 
-def Test(a,b):
-    suma =0
-    for i in range(b):
-        suma += i*a   ##de esta menera se puede entrar desde terminal con 
-                      ##el comando: python3 -m pdb testDebbug.py
+pdb.run('pdb_test.Test(2,5)')
+print('Statement 1')
+for i in range(5):
+    print('Statement'+ str(i+2))
+pdb.set_trace()      ##El debugger se abre con esta linea
+print('Statement 7')
