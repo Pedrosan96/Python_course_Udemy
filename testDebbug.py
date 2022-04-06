@@ -9,7 +9,7 @@ Ejemplo de un modulo para usarlo en Debbuging
 """
 import pdb
 
-pdb.run('pdb_test.Test(2,5)')
+
 print('Statement 1')
 for i in range(5):
     print('Statement'+ str(i+2))
